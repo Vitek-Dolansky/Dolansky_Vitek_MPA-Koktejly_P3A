@@ -22,7 +22,6 @@ const DrinkList: FC<DrinkListProps> = () => {
     return (
         <div>
             <h1>Drink List</h1>
-            <pre>{result}</pre>
             <ul>
                 {drinks.map((drink, index) => (
                     <li key={index}>{drink.strDrink}</li>
