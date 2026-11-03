@@ -12,6 +12,10 @@ const DrinkList: FC<DrinkListProps> = () => {
             setResult(JSON.stringify(data, null, 2));
             setDrinks(data.drinks.map((drink: { strDrink: string }) => drink.strDrink));
         })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        })
+        .finally(() => console.log('Fetch attempt finished.'));
     }, [])
 
     return (
