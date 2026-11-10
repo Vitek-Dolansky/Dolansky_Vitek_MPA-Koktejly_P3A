@@ -1,23 +1,25 @@
 import React, {type FC, useState, useEffect} from "react"
-import { type DrinkListItem } from "../types/DrinkListitem"
+import { type DrinkListItem } from "../types/DrinkListItem"
 
-type DrinkListProps = {}
+type DrinkListProps = {query: string}
 
-const DrinkList: FC<DrinkListProps> = () => {
+const DrinkList: FC<DrinkListProps> = ({query}) => {
     const [result, setResult] = useState<string>()
     const [drinks, setDrinks] = useState<DrinkListItem[]>([]);
     useEffect(() => {
-        fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
+        if (!query)
+            return
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
         .then(response => response.json())
         .then(data => {
             setResult(JSON.stringify(data, null, 2));
-            setDrinks(data.drinks.map((drink: DrinkListItem) => drink));
+            setDrinks(data.drinks ?? []);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         })
         .finally(() => console.log('Fetch attempt finished.'));
-    }, [])
+    }, [query])
 
     return (
         <div>
