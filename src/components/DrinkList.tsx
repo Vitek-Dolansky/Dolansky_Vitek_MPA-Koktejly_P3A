@@ -7,8 +7,10 @@ const DrinkList: FC<DrinkListProps> = ({query}) => {
     const [result, setResult] = useState<string>()
     const [drinks, setDrinks] = useState<DrinkListItem[]>([]);
     useEffect(() => {
-        if (!query)
-            return
+        if (!query) {
+            setDrinks([]);
+            return;
+        }
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
         .then(response => response.json())
         .then(data => {
