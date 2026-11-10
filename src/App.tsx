@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <SearchBar onSearch={setQuery} />
-      <DrinkList query={query} />
+      <DrinkList query={query} onSelect={(id) => console.log(id)} />
     </>
   )
 }
