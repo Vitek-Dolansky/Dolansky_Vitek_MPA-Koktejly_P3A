@@ -31,7 +31,6 @@ const DrinkList: FC<DrinkListProps> = ({query}) => {
                     <li key={index}>{drink.strDrink}</li>
                 ))}
             </ul>
-            <pre>{JSON.stringify(result, null, 2)}</pre>
         </div>
     )
 }
