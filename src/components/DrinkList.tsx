@@ -1,15 +1,18 @@
 import React, {type FC, useState, useEffect} from "react"
 import { type DrinkListItem } from "../types/DrinkListItem"
 
-type DrinkListProps = {query: string}
+type DrinkListProps = {
+    query: string
+    onSelect: (id: string) => void
+}
 
-const DrinkList: FC<DrinkListProps> = ({query}) => {
+const DrinkList: FC<DrinkListProps> = ({query, onSelect}) => {
     const [result, setResult] = useState<string>()
     const [drinks, setDrinks] = useState<DrinkListItem[]>([]);
     useEffect(() => {
         if (!query) {
-            setDrinks([]);
-            return;
+            setDrinks([])
+            return
         }
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
         .then(response => response.json())
@@ -27,8 +30,10 @@ const DrinkList: FC<DrinkListProps> = ({query}) => {
         <div>
             <h1>Drink List</h1>
             <ul>
-                {drinks.map((drink, index) => (
-                    <li key={index}>{drink.strDrink}</li>
+                {drinks.map((drink) => (
+                    <li key={drink.idDrink} onClick={() => onSelect(drink.idDrink)}>
+                        {drink.strDrink}
+                    </li>
                 ))}
             </ul>
         </div>
