@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { type FC, useState, useEffect } from 'react';
 
 
 type SearchBarProps = {
@@ -8,9 +8,15 @@ type SearchBarProps = {
 const SearchBar: FC<SearchBarProps> = ({ onSearch }) => {
     const [text, setText] = useState<string>('');
 
+    useEffect(() => {
+    const timer = setTimeout(() => onSearch(text), 400)
+    return () => clearTimeout(timer)
+    }, [text, onSearch])
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         onSearch(text);
+        
     };
 
     return (
